@@ -170,13 +170,8 @@ const setActivePage = function (pageName) {
 }
 
 const getInitialPage = function () {
-  const hashPage = window.location.hash.replace("#", "").toLowerCase();
-  const savedPage = localStorage.getItem(activePageStorageKey);
+  const savedPage = sessionStorage.getItem(activePageStorageKey);
   const fallbackPage = pages[0]?.dataset.page || "about";
-
-  for (let i = 0; i < pages.length; i++) {
-    if (pages[i].dataset.page === hashPage) return hashPage;
-  }
 
   for (let i = 0; i < pages.length; i++) {
     if (pages[i].dataset.page === savedPage) return savedPage;
@@ -190,8 +185,7 @@ for (let i = 0; i < navigationLinks.length; i++) {
   navigationLinks[i].addEventListener("click", function () {
     const pageName = this.innerHTML.toLowerCase();
     setActivePage(pageName);
-    localStorage.setItem(activePageStorageKey, pageName);
-    window.location.hash = pageName;
+    sessionStorage.setItem(activePageStorageKey, pageName);
     window.scrollTo(0, 0);
   });
 }
