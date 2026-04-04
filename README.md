@@ -35,6 +35,31 @@ Windows:
 git clone https://github.com/codewithsadee/vcard-personal-portfolio.git
 ```
 
+## Deploying to Render
+
+This portfolio is a plain static site, so it should be deployed on Render as a **Static Site**.
+
+The repo now includes a root-level `render.yaml` Blueprint file with:
+
+* `runtime: static`
+* a no-op build command
+* `staticPublishPath: .`
+
+To deploy it on Render:
+
+1. Push this project to GitHub.
+2. In Render, click **New +** -> **Static Site**.
+3. Connect the GitHub repository.
+4. Render should detect the root `render.yaml` automatically.
+5. Create the site and let Render deploy the contents of the repo root.
+
+If Render asks for manual values, use:
+
+* Build Command: `echo "Static site - no build step required"`
+* Publish Directory: `.`
+
+After deployment, your portfolio will be available on an `onrender.com` URL, and you can add a custom domain from the Render dashboard.
+
 ## Contact
 
 If you want to contact me you can reach me at [Twitter](https://www.x.com/codewithsadee_).

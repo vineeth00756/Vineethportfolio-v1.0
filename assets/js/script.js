@@ -10,9 +10,25 @@ const elementToggleFunc = function (elem) { elem.classList.toggle("active"); }
 // sidebar variables
 const sidebar = document.querySelector("[data-sidebar]");
 const sidebarBtn = document.querySelector("[data-sidebar-btn]");
+const sidebarMore = document.querySelector("#sidebar-more");
+
+const syncSidebarState = function () {
+  if (!sidebar || !sidebarBtn || !sidebarMore) return;
+
+  const isExpanded = sidebar.classList.contains("active");
+  sidebarBtn.setAttribute("aria-expanded", String(isExpanded));
+  sidebarMore.setAttribute("aria-hidden", String(!isExpanded));
+}
 
 // sidebar toggle functionality for mobile
-sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); });
+if (sidebar && sidebarBtn) {
+  sidebarBtn.addEventListener("click", function () {
+    elementToggleFunc(sidebar);
+    syncSidebarState();
+  });
+
+  syncSidebarState();
+}
 
 
 
@@ -166,6 +182,7 @@ const setActivePage = function (pageName) {
 
     pages[i].classList.toggle("active", isActivePage);
     navigationLinks[i].classList.toggle("active", isActivePage);
+    navigationLinks[i].setAttribute("aria-current", isActivePage ? "page" : "false");
   }
 }
 
